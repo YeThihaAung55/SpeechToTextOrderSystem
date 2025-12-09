@@ -1,0 +1,56 @@
+<div class="container mt-4">
+  <h2>Product Management</h2>
+  <button type="button" class="btn btn-primary my-2" routerLink="/orders">Order တင်ရန်</button>
+
+  <!-- Product Form -->
+  <form class="card p-3 mb-3">
+    <div class="mb-2">
+      <label>Name</label>
+      <input type="text" [(ngModel)]="product.name" name="name" class="form-control" required>
+    </div>
+
+    <div class="mb-2">
+      <label>Price</label>
+      <input type="number" [(ngModel)]="product.price" name="price" class="form-control" required>
+    </div>
+
+    <div class="mb-2">
+      <label>Quantity</label>
+      <input type="number" [(ngModel)]="product.qty" name="qty" class="form-control" required>
+    </div>
+
+    <div *ngIf="!isEditMode" class="text-center mt-3">
+      <button type="button" class="btn btn-primary" (click)="addProduct()">Add Product</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="clearProduct()">Cancel</button>
+    </div>
+    <div *ngIf="isEditMode" class="text-center mt-3">
+      <button type="button" class="btn btn-warning" (click)="updateProduct(product)">Update Product</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="clearProduct()">Cancel</button>
+    </div>
+  </form>
+
+  <!-- Product Table -->
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr class="text-center">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of products" class="text-center">
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.qty }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="editProduct(p)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteProduct(p.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

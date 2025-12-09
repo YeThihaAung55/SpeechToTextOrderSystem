@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  // imports: [RouterOutlet],
+  standalone: false,
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css'] 
 })
-export class App {
-  protected readonly title = signal('text-to-voice-order');
+export class AppComponent {
+   title = signal('text-to-voice-order');
 }

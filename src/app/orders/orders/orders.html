@@ -1,0 +1,126 @@
+<!-- <div class="container mt-4">
+  <div class="card mb-4">
+    <div class="card-header">Create Order</div>
+    <div class="card-body">
+
+      <div *ngFor="let item of items; let i = index" class="row g-2 mb-2">
+
+        <div class="col-md-5">
+          <select class="form-select"
+                  [(ngModel)]="item.productId"
+                  name="prod{{i}}"
+                  (change)="checkAvailability(i)">
+            <option value="null" disabled selected>Select Product</option>
+            <option *ngFor="let p of products" [value]="p.id">{{ p.name }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <input type="number" class="form-control" min="1"
+                 [(ngModel)]="item.quantity"
+                 name="qty{{i}}">
+        </div>
+
+        <div class="col-md-2" *ngIf="item.available === false">
+          <span class="text-danger small">Not Available</span>
+        </div>
+
+        <div class="col-md-2">
+          <button class="btn btn-danger btn-sm" (click)="removeItem(i)">X</button>
+        </div>
+
+      </div>
+
+      <button class="btn btn-secondary btn-sm" (click)="addItem()">+ Add Item</button>
+      <button class="btn btn-primary float-end" (click)="createOrder()">Submit Order</button>
+
+    </div>
+  </div>
+
+
+  <div class="card mb-4">
+    <div class="card-header">Search Order</div>
+    <div class="card-body">
+      <div class="input-group mb-2">
+        <input type="number" class="form-control" [(ngModel)]="searchId" placeholder="Enter Order ID">
+        <button class="btn btn-primary" (click)="searchOrder()">Search</button>
+      </div>
+
+      <pre *ngIf="foundOrder">{{ foundOrder }}</pre>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header">All Orders</div>
+    <div class="card-body">
+
+      <table class="table table-sm table-bordered" *ngIf="orders.length">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Items</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of orders">
+            <td>{{ o.id }}</td>
+            <td>{{ o.orderDate | date: 'short' }}</td>
+            <td>{{ o.orderItems?.length }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div> -->
+
+
+<div class="container mt-3">
+
+  <h3>Voice Order (Fully Automatic)</h3>
+
+  <div class="mb-3">
+    <button class="btn btn-success me-2" (click)="startListening()" [disabled]="isListening">Start Voice</button>
+    <button class="btn btn-danger" (click)="stopListening()" [disabled]="!isListening">Stop Voice</button>
+  </div>
+
+  <table class="table table-bordered table-sm" *ngIf="orderItems.length">
+    <thead class="table-light">
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of orderItems; let i = index">
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.product.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.totalPrice }}</td>
+        <td><button class="btn btn-sm btn-danger" (click)="removeItem(i)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <strong>Total Amount: </strong>
+    {{ totalAmount }}
+  </div>
+
+
+
+
+  <p *ngIf="orderItems.length === 0" class="text-muted">
+    No items yet. Click "Start Voice" and say product name with quantity (e.g., "Egg 3").
+  </p>
+
+  <button class="btn btn-success mt-2" (click)="submitOrder()" [disabled]="orderItems.length === 0">Submit Order</button>
+  <br>
+  <button class="btn btn-primary mt-2" routerLink="/products">Product ထည့်ရန်</button>
+
+</div>
