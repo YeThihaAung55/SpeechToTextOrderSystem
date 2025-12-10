@@ -1,0 +1,17 @@
+# netlify.toml
+
+[build]
+  # Command to build your Angular app
+  command = "ng build --configuration production"
+  
+  # Folder to publish (output of Angular build)
+  publish = "dist/your-app-name"
+
+  # Node version to use on Netlify
+  node_version = "20"
+
+# Optional: redirect all routes to index.html (for Angular SPA routing)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,52 @@
+<p>order-any-devices works!</p>
+<button class="btn btn-primary" (click)="startListening()">🎤 Speak</button>
+<button class="btn btn-danger" (click)="stopListening()" *ngIf="isListening">⛔ Stop</button>
+
+<p *ngIf="isListening">{{ statusText }}</p>
+
+<input
+  #dictationInput
+  type="text"
+  style="opacity:0; position:absolute; left:-9999px;"
+  (input)="onDictationInput(dictationInput.value)"
+/>
+
+<div>
+  <table class="table table-bordered table-sm" *ngIf="orderItems.length">
+    <thead class="table-light">
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of orderItems; let i = index">
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.product.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.totalPrice }}</td>
+        <td><button class="btn btn-sm btn-danger" (click)="removeItem(i)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <strong>Total Amount: </strong>
+    {{ totalAmount }}
+  </div>
+
+
+
+
+  <p *ngIf="orderItems.length === 0" class="text-muted">
+    No items yet. Click "Start Voice" and say product name with quantity (e.g., "Egg 3").
+  </p>
+
+  <button class="btn btn-success mt-2" (click)="submitOrder()" [disabled]="orderItems.length === 0">Submit Order</button>
+  <br>
+  <button class="btn btn-primary mt-2" routerLink="/products">Product ထည့်ရန်</button>
+
+</div>
+
